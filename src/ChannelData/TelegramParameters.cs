@@ -1,4 +1,5 @@
 using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
 
 namespace GGroupp.Infra.Bot.Builder;
 
@@ -15,6 +16,7 @@ public sealed record class TelegramParameters
     public string? Text { get; }
 
     [JsonProperty("parse_mode")]
+    [JsonConverter(typeof(StringEnumConverter))]
     public TelegramParseMode? ParseMode { get; init; }
 
     [JsonProperty("disable_notification")]
