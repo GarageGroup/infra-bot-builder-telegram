@@ -10,4 +10,7 @@ public sealed record class TelegramKeyboardButton
 
     [JsonProperty("text")]
     public string Text { get; }
+
+    [JsonProperty("web_app")]
+    public TelegramWebApp? WebApp { get; init; }
 }
