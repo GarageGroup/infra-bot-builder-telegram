@@ -8,7 +8,6 @@ public sealed record class TelegramWebApp
         =>
         Url = url ?? string.Empty;
     
-
     [JsonProperty("url")]
     public string? Url { get; init; }
 }
