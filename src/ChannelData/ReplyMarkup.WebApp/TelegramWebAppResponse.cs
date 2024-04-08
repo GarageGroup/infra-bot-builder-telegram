@@ -18,4 +18,3 @@ public readonly record struct TelegramWebAppResponse
     [JsonProperty("message")]
     public TelegramWebAppMessage? Message { get; init; }
 }
-
