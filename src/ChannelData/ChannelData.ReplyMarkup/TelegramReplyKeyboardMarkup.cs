@@ -1,4 +1,3 @@
-using System;
 using Newtonsoft.Json;
 
 namespace GarageGroup.Infra.Bot.Builder;
@@ -7,7 +6,7 @@ public sealed record class TelegramReplyKeyboardMarkup : TelegramReplyMarkup
 {
     public TelegramReplyKeyboardMarkup(TelegramKeyboardButton[][] keyboard)
         =>
-        Keyboard = keyboard ?? Array.Empty<TelegramKeyboardButton[]>();
+        Keyboard = keyboard ?? [];
 
     [JsonProperty("keyboard")]
     public TelegramKeyboardButton[][] Keyboard { get; }

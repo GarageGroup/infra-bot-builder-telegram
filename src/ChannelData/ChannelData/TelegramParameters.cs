@@ -1,3 +1,5 @@
+using System;
+using System.Diagnostics.CodeAnalysis;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 
@@ -5,15 +7,23 @@ namespace GarageGroup.Infra.Bot.Builder;
 
 public sealed record class TelegramParameters
 {
-    public TelegramParameters(string? text = default)
+    internal static readonly TelegramParameters Default;
+
+    static TelegramParameters()
         =>
-        Text = text;
+        Default = new();
+
+    private const string TelegramEmptyText = "ㅤ";
+
+    public TelegramParameters([AllowNull] string text = TelegramEmptyText)
+        =>
+        Text = text.OrNullIfEmpty() ?? TelegramEmptyText;
 
     [JsonProperty("reply_markup")]
     public TelegramReplyMarkup? ReplyMarkup { get; init; }
 
     [JsonProperty("text")]
-    public string? Text { get; }
+    public string Text { get; }
 
     [JsonProperty("parse_mode")]
     [JsonConverter(typeof(StringEnumConverter))]
