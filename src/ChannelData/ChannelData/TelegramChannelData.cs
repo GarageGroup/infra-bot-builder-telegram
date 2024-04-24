@@ -1,3 +1,4 @@
+using System.Diagnostics.CodeAnalysis;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
@@ -5,19 +6,18 @@ namespace GarageGroup.Infra.Bot.Builder;
 
 public sealed record class TelegramChannelData
 {
-    private static readonly JsonSerializer jsonSerializer;
+    private static readonly JsonSerializer Serializer;
 
     static TelegramChannelData()
-    {
-        jsonSerializer = JsonSerializer.Create(new()
+        =>
+        Serializer = JsonSerializer.Create(new()
         {
             NullValueHandling = NullValueHandling.Ignore
         });
-    }
 
-    public TelegramChannelData(TelegramParameters parameters)
+    public TelegramChannelData([AllowNull] TelegramParameters parameters)
         =>
-        Parameters = parameters ?? new();
+        Parameters = parameters ?? TelegramParameters.Default;
 
     [JsonProperty("method")]
     public string Method { get; } = "sendMessage";
@@ -27,5 +27,5 @@ public sealed record class TelegramChannelData
 
     public JObject ToJObject()
         =>
-        JObject.FromObject(this, jsonSerializer);
+        JObject.FromObject(this, Serializer);
 }
